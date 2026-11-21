@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA STUDIO</title>
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{margin:0;color:#402832;background:linear-gradient(180deg,#ffffff 0%,#fff6f9 18%,#ffedf3 38%,#ffffff 62%,#ffedf3 85%,#fff6f9 100%);min-height:100vh}
+.header{text-align:center;padding:32px 15px 42px;background:linear-gradient(180deg,#ffffff 0%,#fff8fa 30%,#ffe9ef 55%,#ffd7e2 78%,#ffc4d6 100%);border-radius:0 0 45px 45px;box-shadow:0 12px 35px rgba(255,130,165,.18)}
+.header h1{font-size:42px;margin:12px 0 2px;letter-spacing:3px;color:#222}
+.header h1 span{background:linear-gradient(90deg,#ff9ebc,#ff6b9a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header p{color:#8a5a6d;margin:0 0 16px;font-size:14px}
+.btn-admin{background:#fff;border:1.5px solid #ffb9cd;color:#d6336c;padding:10px 20px;border-radius:30px;font-weight:800;cursor:pointer}
+.wrap{max-width:560px;margin:auto;padding:16px}
+.titre-section{text-align:center;margin:18px 0 2px;font-size:24px}
+.sous{text-align:center;color:#a87a8a;font-size:13px;margin:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.carte{background:white;border:1.5px solid #ffe0ea;border-radius:22px;padding:16px;text-align:center;cursor:pointer}
+.carte.active{border:2.5px solid #ff6b9a;transform:scale(1.03)}
+.carte h3{margin:8px 0 4px}
+.carte p{font-size:12.5px;color:#8a5a6d;margin:0}
+.prix{display:inline-block;margin-top:10px;background:linear-gradient(90deg,#ff9ebc,#ff6b9a);color:#fff;padding:6px 18px;border-radius:20px;font-weight:900}
+.form-card{background:white;border:1px solid #ffe0ea;border-radius:22px;padding:20px;margin-top:14px}
+label{display:block;font-weight:700;font-size:13px;margin:14px 0 5px}
+input,select{width:100%;padding:12px;border:2px solid #ffe0ea;border-radius:12px;outline:none;font-size:14px;background:#fffafa}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.heures{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.heure{padding:11px;text-align:center;border:2px solid #ffe0ea;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;background:#fff}
+.heure.active{background:#ff6b9a;color:#fff;border-color:#ff6b9a}
+.heure.prise{background:#e8e8e8 !important;color:#999 !important;text-decoration:line-through;pointer-events:none;position:relative}
+.heure.prise::after{content:"OCCUPÉ";position:absolute;bottom:-2px;left:0;right:0;font-size:8px;color:#c00;font-weight:900}
+.btn-main{width:100%;background:linear-gradient(90deg,#ff9ebc,#ff6b9a);color:#fff;border:none;padding:14px;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer;margin-top:18px}
+.btn-heure{width:100%;background:#fff;border:2px dashed #ff9ebc;color:#d6336c;padding:12px;border-radius:12px;font-weight:800;cursor:pointer;margin-top:10px}
+#msg{text-align:center;font-weight:700;color:#d6336c}
+.rdv{background:#fff5f8;border-left:4px solid #ff8fab;padding:10px;border-radius:10px;margin-top:8px;font-size:13.5px}
+.galerie{margin-top:30px}
+.cadre-photo{background:white;border:2px dashed #ffb9cd;border-radius:22px;overflow:hidden;margin-bottom:20px;box-shadow:0 6px 18px rgba(255,140,175,.12)}
+.cadre-vide{width:100%;height:280px;background:linear-gradient(135deg,#fff5f8,#ffe0ea);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#d6336c;text-align:center}
+.cadre-vide .q{font-size:80px;font-weight:900;line-height:1}
+.cadre-vide p{margin:5px 0 0;font-weight:700;font-size:14px}
+.cadre-vide small{color:#a87a8a;font-size:12px}
+.cadre-photo img{width:100%;height:280px;object-fit:cover;display:block}
+.cadre-bas{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:white}
+.cadre-bas b{font-size:16px}
+.cadre-bas .prix-bas{background:linear-gradient(90deg,#ff9ebc,#ff6b9a);color:#fff;padding:8px 18px;border-radius:20px;font-weight:900;font-size:16px}
+.cadre-photo button{width:calc(100% - 32px);margin:0 16px 16px;padding:11px;border:1.5px solid #ffb9cd;background:#fff;color:#d6336c;border-radius:12px;font-weight:800;cursor:pointer}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99;justify-content:center;align-items:center;padding:15px}
+.modal.open{display:flex}
+.modal-box{background:#fff;width:100%;max-width:480px;border-radius:22px;padding:20px;position:relative;max-height:85vh;overflow-y:auto}
+.x{position:absolute;right:12px;top:10px;border:none;background:#fff0f4;width:32px;height:32px;border-radius:50%;cursor:pointer;font-weight:800}
+.stats{display:flex;gap:10px;margin:12px 0}
+.stats div{flex:1;background:#fff5f8;border-radius:14px;padding:12px;text-align:center}
+.stats b{display:block;font-size:18px}
+.btn-del{width:100%;background:#fff0f0;color:#c00;border:1px solid #ffc9c9;padding:11px;border-radius:12px;margin-top:12px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>NOVA <span>STUDIO</span></h1>
+  <p>L'art du placage, la douceur du blanc-rosé</p>
+  <button class="btn-admin" onclick="ouvrirAdmin()">🔐 Espace Administrateur</button>
+</div>
+
+<div class="wrap">
+  <h2 class="titre-section">💖 Nos 5 Placages</h2>
+  <p class="sous">Clique sur celui que tu veux, puis réserve en bas</p>
+  <div class="grid" id="grid"></div>
+
+  <div class="form-card">
+    <h3>📅 Réserver mon RDV</h3>
+    <label>Ton nom complet</label>
+    <input id="nom" placeholder="Ex : Awa Koné">
+    <div class="row2">
+      <div><label>Ton WhatsApp</label><input id="phone" placeholder="07 07 07 07 07"></div>
+      <div><label>Ton Snap</label><input id="snap" placeholder="@ ton snap"></div>
+    </div>
+    <label>Placage choisi</label>
+    <select id="selectPlacage"></select>
+    <label>Choisis ta date</label>
+    <input type="date" id="date">
+    <label>Choisis ton heure</label>
+    <div class="heures" id="heures"></div>
+    <button class="btn-heure" onclick="toggleHeurePerso()">✍️ Écris ton heure de passage</button>
+    <div id="heurePersoBox" style="display:none;margin-top:10px">
+      <label>Écris ton heure de passage (ex : 10h30)</label>
+      <input id="heurePerso" placeholder="Ex : 10h30 / 14h45">
+    </div>
+    <button class="btn-main" onclick="reserver()">✅ RÉSERVER CHEZ NOVA STUDIO</button>
+    <p id="msg"></p>
+  </div>
+
+  <div class="form-card">
+    <h3>📋 RDV du jour choisi</h3>
+    <div id="liste"></div>
+  </div>
+
+  <div class="galerie">
+    <h2 class="titre-section">📸 Nos Modèles en Photo</h2>
+    <p class="sous">Descends, regarde les modèles et choisis</p>
+    <div id="galeriePhotos"></div>
+  </div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <button class="x" onclick="fermerAdmin()">✕</button>
+    <h2>🔐 NOVA STUDIO - Admin</h2>
+    <div id="loginBox">
+      <label>Mot de passe</label>
+      <input type="password" id="mdp" placeholder="Mot de passe">
+      <button class="btn-main" onclick="login()">Entrer</button>
+    </div>
+    <div id="adminBox" style="display:none">
+      <div class="stats">
+        <div><b id="nbRdv">0</b><span>RDV</span></div>
+        <div><b id="gain">0 F</b><span>Gain</span></div>
+      </div>
+      <div id="adminListe"></div>
+      <button class="btn-del" onclick="toutEffacer()">🗑️ Tout effacer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== CONFIG TELEGRAM NOVA STUDIO =====
+const TELEGRAM_TOKEN = "9052329962:AAEF7DCcNCZJaF06Wl2S9lyXdUX5V5cGbJI";
+const TELEGRAM_CHAT_ID = "9130791560";
+
+// ===== WHATSAPP NOVA STUDIO - AVEC LE ZÉRO DEVANT =====
+let monNumBrut = "0757519633";
+let monNum = "225" + monNumBrut.slice(1); // 225757519633 pour le lien wa.me
+
+const PLACAGES = [
+  {id:1, nom:"Soléa Ponytail", desc:"Lisse, propre, naturel.", prix:7000},
+  {id:2, nom:"Barbie Ponytail", desc:"Ultra lisse, effet miroir.", prix:11000},
+  {id:3, nom:"Lovéna Ponytail", desc:"Placage + soin + finition premium.", prix:12000},
+  {id:4, nom:"Elora Ponytail", desc:"Doux et rapide.", prix:7000},
+  {id:5, nom:"Malaika Ponytail", desc:"En 30 min chrono.", prix:6000},
+];
+
+const PHOTOS_BAS = [
+  { nom:"Soléa Ponytail", prix:7000, photo:"solea.jpg.JPG" },
+  { nom:"Barbie Ponytail", prix:11000, photo:"barbie.jpg.JPG" },
+  { nom:"Malaika Ponytail", prix:6000, photo:"malaika.jpg.JPG" },
+  { nom:"Elora Ponytail", prix:7000, photo:"elora.jpg.JPG" },
+  { nom:"Lovéna Ponytail", prix:12000, photo:"lovena.jpg.JPG" },
+];
+
+let choisi = PLACAGES[0];
+let heureChoisie = "";
+let tousRdv = JSON.parse(localStorage.getItem("nova_rdv")||"[]");
+const HEURES = ["08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
+
+function afficher(){
+  document.getElementById("grid").innerHTML = PLACAGES.map(p=>`
+    <div class="carte ${choisi.id===p.id?'active':''}" onclick="choisir(${p.id})">
+      <h3>${p.nom}</h3><p>${p.desc}</p>
+      <div class="prix">${p.prix.toLocaleString()} F</div>
+    </div>`).join("");
+  document.getElementById("selectPlacage").innerHTML = PLACAGES.map(p=>`<option value="${p.id}">${p.nom} - ${p.prix} F</option>`).join("");
+  document.getElementById("selectPlacage").value = choisi.id;
+  document.getElementById("galeriePhotos").innerHTML = PHOTOS_BAS.map((p,i)=>`
+    <div class="cadre-photo">
+      ${p.photo ? `<img src="${p.photo}">` : `
+        <div class="cadre-vide">
+          <div class="q">?</div>
+          <p>METS TA PHOTO ICI</p>
+          <small>${p.nom}</small>
+        </div>`}
+      <div class="cadre-bas">
+        <b>${p.nom}</b>
+        <span class="prix-bas">${p.prix.toLocaleString()} F</span>
+      </div>
+      <button onclick="reserverDepuisPhoto(${i})">Réserver ce modèle - ${p.prix} F 💖</button>
+    </div>
+  `).join("");
+}
+function reserverDepuisPhoto(i){
+  let p = PHOTOS_BAS[i];
+  let plac = PLACAGES.find(x=>x.nom===p.nom);
+  if(plac) choisir(plac.id);
+  window.scrollTo({top: document.querySelector(".form-card").offsetTop - 20, behavior:"smooth"});
+  document.getElementById("msg").innerText = `Tu as choisi ${p.nom} - ${p.prix} F, choisis ton heure 💖`;
+}
+function choisir(id){ choisi = PLACAGES.find(p=>p.id===id); afficher(); }
+document.getElementById("selectPlacage").addEventListener("change",e=>choisir(Number(e.target.value)));
+function afficherHeures(){
+  let date = document.getElementById("date").value;
+  document.getElementById("heures").innerHTML = HEURES.map(h=>{
+    let prise = tousRdv.some(r=>r.date===date && r.heure===h);
+    return `<div class="heure ${prise?'prise':''} ${heureChoisie===h?'active':''}" onclick="choisirHeure('${h}',${prise})">${h}</div>`;
+  }).join("");
+  let f = tousRdv.filter(r=>r.date===date);
+  document.getElementById("liste").innerHTML = f.length===0 ? "<p style='color:#999'>Aucun RDV, c'est libre ✨</p>" : f.map(r=>`<div class="rdv"><b>${r.heure} - ${r.nom}</b><br>${r.type} - ${r.prix} F<br>Snap: ${r.snap||"-"}</div>`).join("");
+}
+function choisirHeure(h,prise){
+  if(prise){ alert("⛔ Cette heure est déjà OCCUPÉE !"); return; }
+  heureChoisie=h; document.getElementById("heurePerso").value=""; afficherHeures();
+}
+function toggleHeurePerso(){
+  let box = document.getElementById("heurePersoBox");
+  box.style.display = box.style.display==="none" ? "block" : "none";
+}
+function reserver(){
+  let nom = document.getElementById("nom").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let snap = document.getElementById("snap").value.trim();
+  let date = document.getElementById("date").value;
+  let heurePerso = document.getElementById("heurePerso").value.trim();
+  let heureFinale = heurePerso || heureChoisie;
+  if(!nom || !date || !heureFinale){ document.getElementById("msg").innerText="⚠️ Mets ton nom, ta date et ton heure"; return; }
+  if(!heurePerso && tousRdv.some(r=>r.date===date && r.heure===heureFinale)){ alert("⛔ Quelqu'un vient de prendre cette heure !"); afficherHeures(); return; }
+  tousRdv.push({nom, phone, snap, type:choisi.nom, prix:choisi.prix, date, heure:heureFinale});
+  localStorage.setItem("nova_rdv", JSON.stringify(tousRdv));
+  document.getElementById("msg").innerText = `✅ Merci ${nom} ! RDV le ${date} à ${heureFinale} pour ${choisi.nom} (${choisi.prix} F)`;
+
+  // ===== ENVOI TELEGRAM =====
+  let texte = "💖 NOUVEAU RDV NOVA STUDIO\n\n👤 Nom: " + nom + "\n📅 Date: " + date + "\n🕐 Heure: " + heureFinale + "\n💇 Placage: " + choisi.nom + " - " + choisi.prix + " F\n📱 WhatsApp: " + phone + "\n👻 Snap: " + snap;
+  fetch("https://api.telegram.org/bot" + TELEGRAM_TOKEN + "/sendMessage", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({chat_id: TELEGRAM_CHAT_ID, text: texte})
+  }).then(r => console.log("Telegram envoyé", r.status)).catch(e => console.log("Erreur Telegram", e));
+
+  // ===== WHATSAPP : 0757519633 =====
+  let txt = `Nouveau RDV NOVA STUDIO:%0A- Nom: ${nom}%0A- Date: ${date}%0A- Heure: ${heureFinale}%0A- Placage: ${choisi.nom} ${choisi.prix}F%0A- WhatsApp: ${phone}%0A- Snap: ${snap}`;
+  window.open(`https://wa.me/${monNum}?text=${txt}`, "_blank");
+  afficherHeures();
+}
+function ouvrirAdmin(){ document.getElementById("modal").classList.add("open"); }
+function fermerAdmin(){ document.getElementById("modal").classList.remove("open"); }
+function login(){
+  if(document.getElementById("mdp").value==="NOVA01"){
+    document.getElementById("loginBox").style.display="none";
+    document.getElementById("adminBox").style.display="block";
+    refreshAdmin();
+  } else alert("Mot de passe faux");
+}
+function refreshAdmin(){
+  document.getElementById("nbRdv").innerText = tousRdv.length;
+  document.getElementById("gain").innerText = tousRdv.reduce((s,r)=>s+r.prix,0).toLocaleString()+" F";
+  document.getElementById("adminListe").innerHTML = tousRdv.length===0 ? "Aucun RDV" : tousRdv.map((r,i)=>`<div class="rdv"><b>${r.date} ${r.heure} - ${r.nom}</b><br>${r.type} - ${r.prix} F<br>WhatsApp: ${r.phone} | Snap: ${r.snap||"-"} <button onclick="supp(${i})" style="float:right;border:none;background:none;cursor:pointer">❌</button></div>`).join("");
+}
+function supp(i){ tousRdv.splice(i,1); localStorage.setItem("nova_rdv", JSON.stringify(tousRdv)); refreshAdmin(); afficherHeures(); }
+function toutEffacer(){ if(confirm("Tout effacer ?")){ tousRdv=[]; localStorage.removeItem("nova_rdv"); refreshAdmin(); afficherHeures(); } }
+document.getElementById("date").addEventListener("change", afficherHeures);
+document.getElementById("date").value = new Date().toISOString().split("T")[0];
+afficher();
+afficherHeures();
+</script>
+</body>
+</html>
