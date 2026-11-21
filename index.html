@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA STUDIO - Ponytail & Placages à Abidjan</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+  body{background:#fff5f8;color:#222;padding-bottom:100px}
+  a{text-decoration:none}
+  header{position:sticky;top:0;z-index:10;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 15px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+  .logo{font-size:22px;font-weight:900;letter-spacing:1px}
+  .logo span{color:#ff2e88}
+  .logo small{display:block;font-size:10px;letter-spacing:3px;color:#888;font-weight:400}
+  .header-btn{background:#ff2e88;color:#fff;padding:9px 14px;border-radius:20px;font-size:13px;font-weight:bold}
+  .hero{background:linear-gradient(135deg,#ff2e88,#ff6aa5);color:#fff;padding:28px 18px 32px;border-radius:0 0 28px 28px;text-align:center}
+  .hero .badge{background:#fff;color:#ff2e88;display:inline-block;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin-bottom:12px}
+  .hero h1{font-size:32px;line-height:1.1}
+  .hero p{font-size:14px;opacity:.95;margin:10px 0 18px}
+  .hero-btns{display:flex;gap:10px;justify-content:center}
+  .hero-btns a{padding:12px 18px;border-radius:20px;font-weight:bold;font-size:14px}
+  .btn-white{background:#fff;color:#ff2e88}
+  .btn-green{background:#25D366;color:#fff}
+  .avantages{display:flex;gap:10px;padding:15px;overflow-x:auto}
+  .avantages div{background:#fff;min-width:140px;padding:12px;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-align:center;font-size:12px;font-weight:bold}
+  .avantages div span{font-size:22px;display:block;margin-bottom:5px}
+  .search{padding:0 15px}
+  .search input{width:100%;padding:14px 16px;border:2px solid #ffd0e0;border-radius:20px;outline:none;font-size:15px;background:#fff}
+  .search input:focus{border-color:#ff2e88}
+  .cats{display:flex;gap:8px;overflow-x:auto;padding:12px 15px}
+  .cats button{white-space:nowrap;border:1px solid #ff2e88;background:#fff;color:#ff2e88;padding:9px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
+  .cats button.active{background:#ff2e88;color:#fff}
+  .titre-section{padding:5px 15px 12px;font-size:18px;font-weight:900}
+  .titre-section span{color:#ff2e88}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:0 15px}
+  .card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.08);position:relative}
+  .card .tag{position:absolute;top:10px;left:10px;background:#ff2e88;color:#fff;font-size:11px;font-weight:bold;padding:5px 9px;border-radius:20px;z-index:2}
+  .card img{width:100%;height:230px;object-fit:cover;background:#ffe6ef;display:block}
+  .card .info{padding:11px}
+  .card .info b{font-size:14px;display:block;min-height:36px}
+  .card .stars{font-size:12px;color:#ffb400;margin:3px 0}
+  .card .prix{color:#ff2e88;font-weight:900;font-size:16px;margin:4px 0 8px}
+  .card .prix s{color:#aaa;font-weight:400;font-size:12px;margin-left:5px}
+  .card button{width:100%;background:#25D366;color:#fff;border:none;padding:11px;border-radius:12px;font-weight:bold;cursor:pointer;font-size:14px}
+  .how{background:#fff;margin:20px 15px;padding:18px;border-radius:20px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  .how h3{margin-bottom:12px}
+  .how .step{display:flex;gap:12px;margin-bottom:12px;align-items:center}
+  .how .num{background:#ff2e88;color:#fff;width:32px;height:32px;min-width:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
+  .how p{font-size:13px;color:#555}
+  .avis{padding:0 15px}
+  .avis-card{background:#fff;padding:15px;border-radius:18px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  .avis-card b{font-size:14px}
+  .avis-card .etoiles{color:#ffb400;font-size:13px}
+  .avis-card p{font-size:13px;color:#555;margin-top:5px;line-height:1.5}
+  .livraison{background:#1a1a1a;color:#fff;margin:20px 15px;padding:20px;border-radius:20px}
+  .livraison h3{margin-bottom:10px}
+  .livraison p{font-size:13px;line-height:1.7;opacity:.9}
+  .livraison b{color:#ff6aa5}
+  footer{text-align:center;padding:20px 15px;font-size:12px;color:#888;line-height:1.7}
+  footer b{color:#ff2e88;font-size:14px}
+  .float{position:fixed;bottom:14px;left:14px;right:14px;background:#25D366;color:#fff;text-align:center;padding:15px;border-radius:20px;font-weight:bold;text-decoration:none;font-size:16px;box-shadow:0 8px 20px rgba(0,0,0,.25);z-index:20}
+  .float small{display:block;font-size:11px;font-weight:400;opacity:.9}
+  /* ADMIN */
+  .admin-link{color:#ccc;font-size:11px;cursor:pointer;margin-top:10px;display:inline-block}
+  #adminPanel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99;overflow-y:auto;padding:20px 12px}
+  .admin-box{background:#fff;border-radius:20px;padding:18px;max-width:500px;margin:0 auto}
+  .admin-box h2{color:#ff2e88;margin-bottom:5px}
+  .admin-box p{font-size:13px;color:#555;margin-bottom:12px}
+  .admin-box label{font-size:12px;font-weight:bold;display:block;margin-top:12px;margin-bottom:4px}
+  .admin-box input{width:100%;padding:11px;border:1px solid #ddd;border-radius:12px;font-size:14px}
+  .admin-item{background:#fff5f8;padding:12px;border-radius:14px;margin-top:10px}
+  .admin-item input{margin-bottom:6px}
+  .btn-admin{background:#ff2e88;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:bold;width:100%;margin-top:12px;cursor:pointer}
+  .btn-grey{background:#eee;color:#333;border:none;padding:10px;border-radius:12px;width:100%;margin-top:8px;cursor:pointer}
+  .btn-del{background:#ff4444;color:#fff;border:none;padding:8px 12px;border-radius:10px;font-size:12px;cursor:pointer;margin-top:6px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">NOVA<span>STUDIO</span><small>ABIDJAN • PONYTAIL</small></div>
+  <a class="header-btn" id="topWhats" target="_blank">WhatsApp 💬</a>
+</header>
+
+<div class="hero">
+  <div class="badge">✨ NOUVELLE COLLECTION 2026 ✨</div>
+  <h1>Deviens la star<br>de ton quartier 💖</h1>
+  <p>Ponytail & Placages de qualité, livrés rapidement partout à Abidjan.</p>
+  <div class="hero-btns">
+    <a class="btn-white" href="#grid">Voir les modèles 👇</a>
+    <a class="btn-green" id="heroWhats" target="_blank">Commander 💬</a>
+  </div>
+</div>
+
+<div class="avantages">
+  <div><span>🚚</span>Livraison Rapide<br>Abidjan</div>
+  <div><span>💎</span>Qualité Premium<br>Cheveux Naturels</div>
+  <div><span>💬</span>Commande Facile<br>Sur WhatsApp</div>
+  <div><span>💰</span>Paiement à la<br>Livraison</div>
+</div>
+
+<div class="search">
+  <input id="recherche" placeholder="🔍 Rechercher... ex: Barbie, Soléa, Malaika" oninput="afficher()">
+</div>
+
+<div class="cats" id="cats"></div>
+
+<h2 class="titre-section">Nos <span>Placages</span> les plus aimés 🔥</h2>
+<div class="grid" id="grid"></div>
+
+<div class="how">
+  <h3>🛒 Comment commander ?</h3>
+  <div class="step"><div class="num">1</div><p><b>Choisis ton modèle</b> - Clique sur Commander sur la photo que tu aimes.</p></div>
+  <div class="step"><div class="num">2</div><p><b>On discute sur WhatsApp</b> - Tu nous envoies ta commune et ton quartier.</p></div>
+  <div class="step"><div class="num">3</div><p><b>On te livre</b> - Tu paies à la livraison. Simple !</p></div>
+</div>
+
+<h2 class="titre-section">Ce que disent <span>nos clientes</span> ⭐</h2>
+<div class="avis">
+  <div class="avis-card"><b>Aminata - Yopougon</b><div class="etoiles">⭐⭐⭐⭐⭐</div><p>"J'ai pris la Barbie Ponytail, elle est trop belle ! On m'a livré le même jour. Merci NOVA STUDIO !"</p></div>
+  <div class="avis-card"><b>Marie - Cocody</b><div class="etoiles">⭐⭐⭐⭐⭐</div><p>"La Lovéna est magnifique, qualité au top pour le prix. Je recommande à 100%."</p></div>
+  <div class="avis-card"><b>Kadidja - Plateau</b><div class="etoiles">⭐⭐⭐⭐⭐</div><p>"Service rapide, gentille sur WhatsApp. Ma Malaika est parfaite."</p></div>
+</div>
+
+<div class="livraison">
+  <h3>🚚 Livraison & Paiement</h3>
+  <p><b>Zones :</b> Yopougon, Cocody, Plateau, Marcory, Treichville, Adjamé, Abobo<br>
+  <b>Paiement :</b> Espèces à la livraison / Orange Money / Wave<br>
+  <b>Horaires :</b> 8h - 20h, 7j/7<br>
+  <b>WhatsApp :</b> 07 57 51 96 33</p>
+</div>
+
+<footer>
+  <b>NOVA STUDIO</b><br>
+  Ponytail • Placages • Beauté<br>
+  Abidjan, Côte d'Ivoire 🇨🇮<br>
+  © 2026 NOVA STUDIO - Tous droits réservés<br>
+  <span class="admin-link" onclick="ouvrirAdmin()">⚙️ Admin</span>
+</footer>
+
+<a class="float" id="btnWhats" target="_blank">💬 Commander sur WhatsApp<small>Clique ici, on te répond vite</small></a>
+
+<!-- PANNEAU ADMIN -->
+<div id="adminPanel">
+  <div class="admin-box">
+    <h2>⚙️ Admin NOVA STUDIO</h2>
+    <p>Modifie tes prix et tes produits ici. Ça s'enregistre sur ton téléphone.</p>
+    <div id="adminList"></div>
+    <button class="btn-admin" onclick="ajouterProduit()">+ Ajouter un produit</button>
+    <button class="btn-admin" onclick="sauvegarderAdmin()">💾 Enregistrer les modifications</button>
+    <button class="btn-grey" onclick="reinitialiserAdmin()">↩️ Remettre les prix d'origine</button>
+    <button class="btn-grey" onclick="fermerAdmin()">Fermer ❌</button>
+  </div>
+</div>
+
+<script>
+let monNum = "225757519633";
+let MOT_DE_PASSE_ADMIN = "NOVA01";
+
+let PRODUITS_DEFAUT = [
+  { nom:"Soléa Ponytail", prix:7000, ancien:9000, photo:"solea.jpg.JPG", cat:"Ponytail", tag:"POPULAIRE", etoiles:"⭐⭐⭐⭐⭐ (128)" },
+  { nom:"Barbie Ponytail", prix:11000, ancien:14000, photo:"barbie.jpg.JPG", cat:"Ponytail", tag:"BEST SELLER", etoiles:"⭐⭐⭐⭐⭐ (214)" },
+  { nom:"Malaika Ponytail", prix:6000, ancien:8000, photo:"malaika.jpg.JPG", cat:"Ponytail", tag:"PETIT PRIX", etoiles:"⭐⭐⭐⭐ (96)" },
+  { nom:"Elora Ponytail", prix:7000, ancien:9500, photo:"elora.jpg.JPG", cat:"Ponytail", tag:"NOUVEAU", etoiles:"⭐⭐⭐⭐⭐ (75)" },
+  { nom:"Lovéna Ponytail", prix:12000, ancien:15000, photo:"lovena.jpg.JPG", cat:"Ponytail", tag:"PREMIUM", etoiles:"⭐⭐⭐⭐⭐ (182)" },
+];
+
+// On charge les produits sauvegardés, sinon les défauts
+let PHOTOS_BAS = JSON.parse(localStorage.getItem("nova_produits") || "null") || PRODUITS_DEFAUT;
+
+let catActive = "Tout";
+let categories = ["Tout", ...new Set(PHOTOS_BAS.map(p=>p.cat))];
+
+function afficher(){
+  categories = ["Tout", ...new Set(PHOTOS_BAS.map(p=>p.cat))];
+  let q = document.getElementById("recherche").value.toLowerCase();
+  let catsDiv = document.getElementById("cats");
+  catsDiv.innerHTML = categories.map(c=>`<button class="${c===catActive?'active':''}" onclick="setCat('${c}')">${c}</button>`).join("");
+  let filtres = PHOTOS_BAS.filter(p => (catActive==="Tout" || p.cat===catActive) && p.nom.toLowerCase().includes(q));
+  document.getElementById("grid").innerHTML = filtres.map(p=>`
+    <div class="card">
+      <div class="tag">${p.tag}</div>
+      <img src="${p.photo}" alt="${p.nom}" onerror="this.style.display='none'">
+      <div class="info">
+        <b>${p.nom}</b>
+        <div class="stars">${p.etoiles}</div>
+        <div class="prix">${Number(p.prix).toLocaleString()} F <s>${Number(p.ancien).toLocaleString()} F</s></div>
+        <button onclick="commander('${p.nom}', ${p.prix})">Commander 💬</button>
+      </div>
+    </div>
+  `).join("") || "<p style='padding:15px'>Aucun résultat 😢</p>";
+}
+
+function setCat(c){ catActive=c; afficher(); }
+function commander(nom, prix){
+  let msg = `Bonjour NOVA STUDIO 💖\nJe veux commander : ${nom} - ${Number(prix).toLocaleString()} F\n\nC'est disponible ?`;
+  window.open(`https://wa.me/${monNum}?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+let msgGeneral = "Bonjour NOVA STUDIO 💖\nJe veux commander un placage.";
+document.getElementById("btnWhats").href = `https://wa.me/${monNum}?text=${encodeURIComponent(msgGeneral)}`;
+document.getElementById("topWhats").href = `https://wa.me/${monNum}?text=${encodeURIComponent(msgGeneral)}`;
+document.getElementById("heroWhats").href = `https://wa.me/${monNum}?text=${encodeURIComponent(msgGeneral)}`;
+
+// ===== ADMIN =====
+function ouvrirAdmin(){
+  let mdp = prompt("Mot de passe Admin :");
+  if(mdp === MOT_DE_PASSE_ADMIN){
+    document.getElementById("adminPanel").style.display = "block";
+    afficherAdmin();
+  } else if(mdp !== null){
+    alert("Mot de passe incorrect ❌");
+  }
+}
+function fermerAdmin(){ document.getElementById("adminPanel").style.display = "none"; }
+
+function afficherAdmin(){
+  document.getElementById("adminList").innerHTML = PHOTOS_BAS.map((p,i)=>`
+    <div class="admin-item">
+      <label>Nom du produit ${i+1}</label>
+      <input id="nom-${i}" value="${p.nom}">
+      <label>Prix (F)</label>
+      <input id="prix-${i}" type="number" value="${p.prix}">
+      <label>Ancien prix barré (F)</label>
+      <input id="ancien-${i}" type="number" value="${p.ancien}">
+      <label>Nom de la photo (ex: solea.jpg.JPG)</label>
+      <input id="photo-${i}" value="${p.photo}">
+      <button class="btn-del" onclick="supprimerProduit(${i})">🗑️ Supprimer ce produit</button>
+    </div>
+  `).join("");
+}
+
+function sauvegarderAdmin(){
+  PHOTOS_BAS = PHOTOS_BAS.map((p,i)=>{
+    return {
+      ...p,
+      nom: document.getElementById(`nom-${i}`).value,
+      prix: Number(document.getElementById(`prix-${i}`).value),
+      ancien: Number(document.getElementById(`ancien-${i}`).value),
+      photo: document.getElementById(`photo-${i}`).value,
+    };
+  });
+  localStorage.setItem("nova_produits", JSON.stringify(PHOTOS_BAS));
+  afficher();
+  alert("Enregistré ! ✅ Tes nouveaux prix sont en ligne.");
+  fermerAdmin();
+}
+
+function ajouterProduit(){
+  PHOTOS_BAS.push({ nom:"Nouveau Produit", prix:8000, ancien:10000, photo:"", cat:"Ponytail", tag:"NOUVEAU", etoiles:"⭐⭐⭐⭐⭐ (0)" });
+  afficherAdmin();
+}
+
+function supprimerProduit(i){
+  if(confirm("Supprimer ce produit ?")){
+    PHOTOS_BAS.splice(i,1);
+    localStorage.setItem("nova_produits", JSON.stringify(PHOTOS_BAS));
+    afficherAdmin();
+    afficher();
+  }
+}
+
+function reinitialiserAdmin(){
+  if(confirm("Remettre les 5 prix d'origine ?")){
+    PHOTOS_BAS = JSON.parse(JSON.stringify(PRODUITS_DEFAUT));
+    localStorage.removeItem("nova_produits");
+    afficherAdmin();
+    afficher();
+  }
+}
+
+afficher();
+</script>
+</body>
+</html>
